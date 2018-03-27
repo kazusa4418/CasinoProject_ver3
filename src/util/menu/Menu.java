@@ -1,48 +1,55 @@
 package util.menu;
 
-import util.checker.Checker;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
-public class Menu {
-    private ArrayList<MenuItem> items = new ArrayList<>();
+public abstract class Menu<E> {
+    private List<MenuItem> items = new ArrayList<>();
 
-    public void addMenu(int id, String title, Callback cb) {
-        MenuItem item = new MenuItem(id, title, cb);
-        items.add(item);
+    protected Menu() {
+        addMenu();
     }
 
-    void resetMenu() {
-        items.clear();
+    protected abstract void addMenu();
+
+    protected abstract E callMethod(int no);
+
+    protected void add(int id, String title) {
+        items.add(new MenuItem(id, title));
     }
 
-    public void select() {
-        try {
-            int no = input();
-            int id = items.get(no - 1).getID();
-            items.get(no - 1).callMethod(id);
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private int input() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        while(true) {
-            System.out.print("> ");
-            String input = br.readLine();
-            if (Checker.numberCheck(input, items.size() + 1))
-                return Integer.parseInt(input);
-            System.out.println("入力が間違っています。");
-        }
-    }
-
-    public void show() {
+    public Menu<E> show() {
         for (int i = 0; i < items.size(); i++ ) {
             System.out.println((i + 1) + ": " + items.get(i));
+        }
+        return this;
+    }
+
+    @SuppressWarnings("unchecked")
+    public E select() {
+        int no = input();
+        MenuItem item = items.get(no - 1);
+        return callMethod(item.getID());
+    }
+
+    private int input() {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            try {
+                System.out.print("> ");
+                int i = Integer.parseInt(sc.nextLine());
+
+                if (i <= 0 || i > items.size()) {
+                    System.err.println("その番号の要素は存在しません。");
+                }
+                else {
+                    return i;
+                }
+            }
+            catch (NumberFormatException e) {
+                System.err.println("整数ではありません。");
+            }
         }
     }
 }

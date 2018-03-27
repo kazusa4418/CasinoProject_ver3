@@ -1,26 +1,19 @@
 package util.menu;
 
 class MenuItem {
-  private int id;
-  private String title;
-  private Callback cb;
+    private int id;
+    private String title;
 
-  MenuItem(int id, String title, Callback cb) {
-      this.id = id;
-      this.title = title;
-      this.cb = cb;
-  }
+    MenuItem(int id, String title) {
+        this.id = id;
+        this.title = title;
+    }
 
-  @Override
-  public String toString() {
-    return this.title;
-  }
+    public int getID() {
+        return id;
+    }
 
-  void callMethod(int id) {
-    cb.callback(id);
-  }
-
-  int getID() {
-      return this.id;
-  }
+    public String toString() {
+        return title;
+    }
 }

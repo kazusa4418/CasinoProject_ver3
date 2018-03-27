@@ -1,11 +1,11 @@
 package util.playingcard;
 
 public enum CardSuit {
-    JOKER("JOKER"),        //ordinal is 0
-    SPADE("♠"),            //ordinal is 1
-    HEART("♥"),            //ordinal is 2
-    DIAMOND("♦"),          //ordinal is 3
-    CLOVER("♣");           //ordinal is 4
+    CLOVER("♣"),
+    DIAMOND("♦"),
+    HEART("♥"),
+    SPADE("♠"),
+    JOKER("JOKER");
 
     private String suit;
 
@@ -20,9 +20,5 @@ public enum CardSuit {
 
     public int strength() {
         return this.ordinal();
-    }
-
-    public boolean isJOKER() {
-        return this == JOKER;
     }
 }

@@ -1,42 +1,41 @@
 package util.playingcard;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Hand extends ArrayList<PlayingCard> {
+public class Hand {
+    private List<PlayingCard> cards = new ArrayList<>();
 
-    public void show() {
-        if (isEmpty())
-            System.out.println("(Empty)");
-        else {
-            for (PlayingCard card : this)
-                System.out.print(card);
-        }
-        System.out.println();
+    public Hand() {
     }
 
-    public void show(String param) {
-        if (isEmpty())
-            System.out.println("(Empty)");
-        else {
-            switch (param) {
-                case "WITH_INDEX":
-                    for (int i = 0; i < this.size(); i++)
-                        System.out.println((i + 1) + ": " + this.get(i));
-                    break;
-                case "NUM_ONLY":
-                    for (PlayingCard card : this)
-                        System.out.println(card.toString(true));
-                    break;
-                case "SUIT_ONLY":
-                    for (PlayingCard card : this)
-                        System.out.println(card.toString(false));
-                    break;
-            }
-        }
+    public void add(PlayingCard card) {
+        cards.add(card);
+    }
+
+    public int size() {
+        return cards.size();
+    }
+
+    public PlayingCard get(int idx) {
+        return cards.get(idx);
+    }
+
+    public PlayingCard give(int idx) {
+        PlayingCard card = cards.get(idx);
+        cards.remove(idx);
+        return card;
+    }
+
+    public void remove(int index) {
+        cards.remove(index);
     }
 
     public void sort() {
-        super.sort(new CardSorter());
+        cards.sort(PlayingCard.getSorter());
     }
 
+    public List<PlayingCard> getList() {
+        return cards;
+    }
 }

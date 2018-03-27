@@ -30,8 +30,4 @@ public enum CardNumber {
     public int strength() {
         return ordinal();
     }
-
-    public boolean isJOKER() {
-        return this == JOKER;
-    }
 }

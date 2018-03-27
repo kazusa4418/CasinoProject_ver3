@@ -2,13 +2,11 @@ package util.manager;
 
 import java.io.IOException;
 
-public class ConsoleManager {
+public class Console {
     public static void clear() {
         try {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        } catch(IOException e) {
-            System.err.println(e);
-        } catch (InterruptedException e) {
+        } catch(IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
